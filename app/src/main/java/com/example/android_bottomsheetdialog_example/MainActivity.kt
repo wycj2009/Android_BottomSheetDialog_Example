@@ -20,21 +20,20 @@ class MainActivity : AppCompatActivity() {
 
         binding.button1.setOnClickListener {
             BottomSheetDialog(this).apply {
-                setContentView(
-                        layoutInflater.inflate(R.layout.fragment_bottom_sheet_dialog, null)
-                )
+                behavior.run {
+                    state = BottomSheetBehavior.STATE_EXPANDED
+                    skipCollapsed = true
+                }
                 setOnShowListener { dialogInterface: DialogInterface ->
                     (dialogInterface as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let { frameLayout: FrameLayout ->
-                        BottomSheetBehavior.from(frameLayout).run {
-                            state = BottomSheetBehavior.STATE_EXPANDED
-                            skipCollapsed = true
-                        }
-
                         frameLayout.layoutParams = frameLayout.layoutParams.apply {
                             height = WindowManager.LayoutParams.MATCH_PARENT
                         }
                     }
                 }
+                setContentView(
+                        layoutInflater.inflate(R.layout.fragment_bottom_sheet_dialog, null)
+                )
             }.show()
         }
 

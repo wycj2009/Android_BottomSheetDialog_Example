@@ -24,13 +24,12 @@ class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireContext(), theme).apply {
+            behavior.run {
+                state = BottomSheetBehavior.STATE_EXPANDED
+                skipCollapsed = true
+            }
             setOnShowListener { dialogInterface: DialogInterface ->
                 (dialogInterface as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let { frameLayout: FrameLayout ->
-                    BottomSheetBehavior.from(frameLayout).run {
-                        state = BottomSheetBehavior.STATE_EXPANDED
-                        skipCollapsed = true
-                    }
-
                     frameLayout.layoutParams = frameLayout.layoutParams.apply {
                         height = WindowManager.LayoutParams.MATCH_PARENT
                     }
